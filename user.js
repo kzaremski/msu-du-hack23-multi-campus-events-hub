@@ -3,12 +3,22 @@
  */
 
 // Require dependencies
-const router = express.router();
+const express = require("express");
+const router = express.Router();
 
 // Login route
-router.get("/login", (req, res) => {
-    if (req.session.username) return res.redirect("/");
-    res.render("login.njk");
+router.get("/", (req, res) => {
+    if (!req.session.username) return res.redirect("/profile/login");
+    res.render("user_profile.html");
+});
+
+router.get("/signin", (req, res) => {
+    if (req.session.username) return res.redirect("/profile/");
+    res.render("signin.html");
+});
+router.get("/create", (req, res) => {
+    if (req.session.username) return res.redirect("/profile/");
+    res.render("signup.html");
 });
 
 // Logout route

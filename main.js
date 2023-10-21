@@ -25,7 +25,7 @@ const fs = require("fs");
 const bcrypt = require("bcrypt");
 
 // Routers
-const user = require("./user");
+const userRouter = require("./user");
 
 // Express app object
 const app = express();
@@ -73,6 +73,9 @@ if (app.get("env") === "production") nunjucksOptions.noCache = false;
 nunjucks.configure("views", nunjucksOptions);
 app.set("views", path.join(__dirname, "views"));
 
+// Static files
+app.use("/static", express.static("static"));
+
 // *** API
 //app.use("/api", require(path.join(__dirname, "/api/api.js")));
 
@@ -84,7 +87,7 @@ app.get("/", (req, res) => {
 })
 
 // Routers
-app.use("/user", user);
+app.use("/profile", userRouter);
 
 // Initialization
 (async function init() {
