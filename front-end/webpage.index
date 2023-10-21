@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Auraria Events</title>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Auraria Events</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#tab1">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#tab2">Vending Machines</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="sign-on.html">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Title -->
+<div class="container text-center my-4">
+    <h1>Auraria Events</h1>
+</div>
+
+<!-- Tab Content -->
+<div class="container mt-4" style="background-color:red;"">
+    <h2>Upcoming Club Events</h2>
+
+    <div class="row">
+        <!-- Event 1 -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Event 1</h5>
+                    <p class="card-text">
+                        Date: January 15, 2023<br>
+                        Time: 7:00 PM<br>
+                        Organization: Club A<br>
+                        Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Event 2</h5>
+                    <p class="card-text">
+                        Date: February 10, 2023<br>
+                        Time: 6:30 PM<br>
+                        Organization: Club B<br>
+                        Description: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Event 3</h5>
+                    <p class="card-text">
+                        Date: March 5, 2023<br>
+                        Time: 5:00 PM<br>
+                        Organization: Club C<br>
+                        Description: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
