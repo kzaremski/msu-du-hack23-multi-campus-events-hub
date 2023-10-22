@@ -4,43 +4,64 @@ const uuid = require('uuid');
 
 // Event schema
 const eventSchema = new mongoose.Schema({
-  // UUID for the new event
-  uuid: {
-    type: String,
-    unique: true,
-    trim: true,
-    default: uuid.v4
-  },
-  title: {
-    type: String,
-    trim: true,
-  },
-  // Event description as markdown
-  description: {
-    type: String,
-  },
-  // The datetime that the event is starting
-  date: {
-    type: Date,
-    default: Date.now
-  },
-  // thirdParty - If the event was scraped from a public event calendar
-  thirdParty: {
-    type: Boolean,
-    default: false
-  },
-  institutions: {
-    type: Array,
-    default: [],
-  },
-  dateCreated: {
-    type: Date,
-    default: Date.now
-  },
-  deleted: {
-    type: Boolean,
-    default: false
-  }
+    // UUID for the new event
+    uuid: {
+        type: String,
+        unique: true,
+        trim: true,
+        default: uuid.v4
+    },
+    url: {
+        trim: true,
+        type: String
+    },
+    title: {
+        type: String,
+        trim: true,
+    },
+    description: {
+        type: String, // Event description as markdown
+    },
+    location: {
+        type: String,
+    },
+    start: {
+        type: Date,
+        default: Date.now
+    },
+    end: {
+        type: Date,
+        default: Date.now
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    categories: Array,
+    image: {
+        type: String,
+        default: ""
+    },
+    institution: {
+        type: String,
+        default: ""
+    },
+    original: {
+        type: String,
+        default: ""
+    },
+    owner: {
+        type: String,
+        default: ""
+    },
+    deleted: {
+        type: Boolean,
+        default: false
+    },
+    registered: {
+        type: Array,
+        default: []
+    }
 });
 
 // Create a mongoose model from that schema

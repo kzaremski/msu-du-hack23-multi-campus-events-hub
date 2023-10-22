@@ -28,6 +28,12 @@ const bodyParser = require("body-parser");
 // Routers
 const userRouter = require("./user");
 
+// Scraper
+const scraper = require("./scraper");
+
+// Aggregation / Search / Reccomendation Engine
+//const engine 
+
 // Express app object
 const app = express();
 
@@ -96,6 +102,13 @@ app.get("/", (req, res) => {
     });
 })
 
+// Attributions page
+app.get("/attributions", (req, res) => {
+    res.render("attributions.html", {
+        username: req.session.username
+    });
+})
+
 // Routers
 app.use("/profile", userRouter);
 
@@ -119,6 +132,9 @@ app.use(function (req, res, next) {
         console.error(`There was an issue connecting to the MongoDB database \n-->${err}`);
         return;
     }
+
+    // Run the scraper
+    scraper.scrapeAllAndUpdate();
 
     // Express app listening on the development or production port
     const port = process.env.PORT || 3000;
