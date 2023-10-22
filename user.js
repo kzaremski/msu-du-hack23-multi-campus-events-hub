@@ -29,6 +29,15 @@ router.get("/", (req, res) => {
     });
 });
 
+// Settings route
+router.get("/settings", (req, res) => {
+    if (!req.session.username) return res.redirect("/profile/signin");
+    res.render("user_settings.html", {
+        username: req.session.username,
+        user: req.session.user
+    });
+});
+
 router.get("/signin", (req, res) => {
     if (req.session.username) return res.redirect("/");
     res.render("signin.html");
@@ -62,6 +71,19 @@ router.post("/signin", async (req, res) => {
         // Set the session and log in the user
         req.session.username = existing.email;
         req.session.user = existing;
+
+        // Remember me
+        if (remember) req.session.cookie.maxAge = 2628000000;
+
+        // Add the login record
+        let logins = existing.loginHistory;
+        logins.push({
+            "date": Date.now(),
+            "ip": req.ip,
+            "useragent": req.get("User-Agent")
+        });
+        await User.findOneAndUpdate({ email: email }, { loginHistory: logins });  
+
         // Redirect
         return res.redirect("/");
     } else {

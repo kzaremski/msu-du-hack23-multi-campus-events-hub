@@ -15,16 +15,5 @@ function scrapeAllAndUpdate() {
 
 }
 
-// Scraper Class
-class Scraper {
-    constructor() {
-
-    }
-
-    scrape() {
-        return "";
-    }
-}
-
 // Export
 module.exports = { router, Scraper };
