@@ -105,13 +105,12 @@ app.get("/", async (req, res) => {
     res.render("index.html", {
         username: req.session.username,
         recommended: await engine.getRecommended(req.session.user, 3),
-        recent: await engine.getMostRecent(3),
+        recent: await engine.getMostRecent(4),
         popular: await engine.getMostPopular(3),
-        upcoming: await engine.getSoonestUpcoming(3),
+        upcoming: await engine.getSoonestUpcoming(4),
     });
 })
 
-// 4 Views
 app.get("/foryou", async (req, res) => {
     res.render("recommended.html", {
         username: req.session.username,

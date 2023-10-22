@@ -2,9 +2,6 @@
     MSU-DU Hack 2023
 */
 
-// Import dependencies
-
-
 // Individual scrapers
 const msudenver_scraper = require("./scrapers/msudenver.edu");
 const du_scraper = require("./scrapers/du.edu");

@@ -3,9 +3,12 @@
 <div class="container py-4">
     <div class="alert alert-dismissible alert-warning">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <p class="mb-0">This event was automatically imported from {{ event.institution }} via. <a href="{{ event.scrapedFrom }}">{{ event.scrapedFrom }}</a>. <strong>There may be content and or formatting issues.</strong></p>
+        <p class="mb-0">This event was automatically imported from {{ event.institution }} via. <a
+                href="{{ event.scrapedFrom }}">{{ event.scrapedFrom }}</a>. <strong>There may be content and or
+                formatting issues.</strong></p>
     </div>
-    <div class="container bg-dark rounded mb-3" id="jumbotron" style="background-image: url('{% if event.image %}{{event.image}}{% else %}/static/img/parker-gibbons-unsplash.jpg{% endif %}');">
+    <div class="container bg-dark rounded mb-3" id="jumbotron"
+        style="background-image: url('{% if event.image %}{{event.image}}{% else %}/static/img/parker-gibbons-unsplash.jpg{% endif %}');">
         <br>
         <br>
         <br>
@@ -15,19 +18,19 @@
     <h1>{{ event.title }}</h1>
     <h4>{{ event.institution }}</h4>
     <div class="mb-4">
-        <button class="btn mr-4 btn-primary"><i class="fa-regular fa-calendar-check"></i> RSVP</button>
-        <button class="btn mr-4 btn-success"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share Event</button>
+        <button class="btn mr-4 btn-primary" data-bs-toggle="modal" data-bs-target="#rsvp-modal"><i class="fa-regular fa-calendar-check"></i> RSVP</button>
+        <button class="btn mr-4 btn-success" data-bs-toggle="modal" data-bs-target="#share-modal"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share Event</button>
         <button class="btn mr-4 btn-info"><i class="fa-solid fa-plus"></i> Claim Event</button>
         <button class="btn mr-4 btn-danger"><i class="fa-solid fa-flag"></i> Report Event</button>
     </div>
     <hr>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <p>{{ event.description }}</p>
+            <p>{{ event.description or "N/A" }}</p>
         </div>
         <div class="col-md-6 mb-3">
             <h5>Location</h5>
-            <p>{{ event.location }}</p>
+            <p>{{ event.location or "N/A" }}</p>
             <h5>From</h5>
             <p>{{ event.start | date("dddd, MMMM Do YYYY, h:mm a") }}</p>
             <h5>To</h5>
@@ -44,6 +47,10 @@
             <p>{{ event.dateCreated | date("dddd, MMMM Do YYYY, h:mm a") }}</p>
         </div>
     </div>
+    <div>
+        <h5>{{ event.registered|length }} registerd on uConnect.</h5>
+        <div class="progress registered-breakdown" data-registered="{{ toJSON(event.registered) }}"></div>
+    </div>
     <style>
         #jumbotron {
             background-size: cover;
@@ -51,4 +58,62 @@
         }
     </style>
 </div>
+
+{% if event.scraped %}
+{% if event.url %}
+<div class="modal" tabindex="-1" id="rsvp-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">RSVP via. External Site</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>This event was scraped from a calendar stream. Please click the link below to open the external website for registration.</p>
+                <p><a href="{{ event.url }}" target="_blank">{{ event.url }}</a></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">I didn't register</button>
+                <a href="./register"><button type="button" class="btn btn-success" data-bs-dismiss="modal">I registered!</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="modal" tabindex="-1" id="rsvp-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">RSVP</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>The upstream event source did not provide a link to RSVP. Please contact the event coordinator.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endif %}
+<div class="modal" tabindex="-1" id="share-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Copy the permalink below to share the event with others.</p>
+                <input class="form-control" id="sharelink" readonly>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/event.js"></script>
 {% endblock %}

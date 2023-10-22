@@ -7,17 +7,12 @@
                 <h5 class="mb-0">{{ name }}</h5>
                 <p class="mb-0 opacity-75 truncate">{{ description }}</p>
                 <small class="text-nowrap">
-                    From {{ start | date("dddd, MMMM Do YYYY, h:mm a") }} to {{ end | date("dddd, MMMM Do YYYY, h:mm a") }}
+                    From {{ start | date("dddd, MMMM Do YYYY, h:mm a") }}<br>To {{ end | date("dddd, MMMM Do YYYY, h:mm a") }}
                 </small>
             </div>
         </div>
     </div>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 40%;"></div>
-        <div class="progress-bar bg-info" role="progressbar" style="width: 10%;"></div>
-        <div class="progress-bar bg-success" role="progressbar" style="width: 30%;"></div>
-        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%;"></div>
-    </div>
+    <div class="progress registered-breakdown" data-registered="{{ toJSON(interest) }}"></div>
 </a>
 {% endmacro %}
 
