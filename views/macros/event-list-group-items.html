@@ -4,9 +4,9 @@
         <div class="rounded flex-shrink-0 list-group-item-image" style="background-image: url('{% if event.image %}{{event.image}}{% else %}/static/img/none.png{% endif %}');"></div>
         <div class="d-flex gap-2 w-100 justify-content-between">
             <div>
-                <h5 class="mb-0">{{ event.title }}</h5>
+                <h5 class="mb-0 needs-html-filter">{{ event.title }}</h5>
                 <span class="badge bg-info">{{ event.institution }}</span>
-                <p class="mb-0 opacity-75 truncate">{{ event.description }}</p>
+                <p class="mb-0 opacity-75 truncate needs-html-filter">{{ event.description }}</p>
                 <small class="text-nowrap">
                     From {{ start | date("dddd, MMMM Do YYYY, h:mm a") }}<br>To {{ end | date("dddd, MMMM Do YYYY, h:mm a") }}
                 </small>
@@ -19,7 +19,7 @@
 
 {% macro small(event) %}
 <a href="/event/{{event.uuid|urlencode}}" class="list-group-item list-group-item-action p-3 w-100 justify-content-between">
-    <h5 class="mb-2">{{ event.title }}</h5>
+    <h5 class="mb-2 needs-html-filter">{{ event.title }}</h5>
     <span class="badge bg-info">{{ event.institution }}</span>
     <small class="text-nowrap">{{ event.start | date("dddd, MMMM Do YYYY, h:mm a") }}</small>
 </a>

@@ -1,12 +1,21 @@
 {% extends "page.html" %}
 {% block body %}
 <div class="container py-4">
+{% if user %}
+{% if event.uuid in user.registeredEvents %}
+<div class="alert alert-success">
+    <p class="mb-0">You are registered for this event! <a href="/event/{{ event.uuid|urlencode }}/unregister"><button class="btn btn-danger btn-sm">Unregister</button></a></p>
+</div>
+{% endif %}
+{% endif %}
+{% if event.scraped %}
     <div class="alert alert-dismissible alert-warning">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         <p class="mb-0">This event was automatically imported from {{ event.institution }} via. <a
                 href="{{ event.scrapedFrom }}">{{ event.scrapedFrom }}</a>. <strong>There may be content and or
                 formatting issues.</strong></p>
     </div>
+{% endif %}
     <div class="container bg-dark rounded mb-3" id="jumbotron"
         style="background-image: url('{% if event.image %}{{event.image}}{% else %}/static/img/parker-gibbons-unsplash.jpg{% endif %}');">
         <br>
@@ -15,7 +24,7 @@
         <br>
         <br>
     </div>
-    <h1>{{ event.title }}</h1>
+    <h1 class="needs-html-filter">{{ event.title }}</h1>
     <h4>{{ event.institution }}</h4>
     <div class="mb-4">
         <button class="btn mr-4 btn-primary" data-bs-toggle="modal" data-bs-target="#rsvp-modal"><i class="fa-regular fa-calendar-check"></i> RSVP</button>
@@ -26,7 +35,7 @@
     <hr>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <p>{{ event.description or "N/A" }}</p>
+            <p class="needs-html-filter">{{ event.description or "N/A" }}</p>
         </div>
         <div class="col-md-6 mb-3">
             <h5>Location</h5>
@@ -74,7 +83,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">I didn't register</button>
-                <a href="/event/{{ event.uuid| }}/register"><button type="button" class="btn btn-success" data-bs-dismiss="modal">I registered!</button></a>
+                <a href="/event/{{ event.uuid|urlencode }}/register"><button type="button" class="btn btn-success" data-bs-dismiss="modal">I registered!</button></a>
             </div>
         </div>
     </div>

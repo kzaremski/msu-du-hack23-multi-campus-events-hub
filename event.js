@@ -35,7 +35,7 @@ router.get("/:eventUUID", async (req, res) => {
     });
 });
 
-router.post("/:eventUUID/register", async(req, res) => {
+router.get("/:eventUUID/register", async(req, res) => {
     if (!req.session.username) return res.redirect("/profile/signin");
 
     try {
@@ -57,11 +57,11 @@ router.post("/:eventUUID/register", async(req, res) => {
         const user = await User.findOne({ email: req.session.username });
         let userRegistered = user.registeredEvents.slice();
         if (userRegistered.indexOf(event.uuid) >= 0) return res.redirect("/event/" + event.uuid);
-        registeredEvents.push(req.session.username)
+        userRegistered.push(event.uuid)
         
         await User.findOneAndUpdate(
             { email: req.session.username },
-            { registeredEvents: registeredEvents }
+            { registeredEvents: userRegistered }
         );
 
         // If exists
