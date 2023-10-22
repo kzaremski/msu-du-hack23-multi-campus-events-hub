@@ -8,6 +8,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 
 // MongoDB models
+const Event = require("./models/event.js");
 const User = require("./models/user.js");
 
 /**
@@ -24,9 +25,18 @@ function extractTLD(email) {
 // Login route
 router.get("/", async (req, res) => {
     if (!req.session.username) return res.redirect("/profile/signin");
+
+    const user = await User.findOne({ email: req.session.username });
+    let events = [];
+    for (const uuid of user.registeredEvents) {
+        const event = await Event.findOne({ uuid: uuid });
+        events.push(event);
+    }
+    
     res.render("user_profile.html", {
         username: req.session.username,
-        user: await User.findOne({ email: req.session.username }),
+        user: user,
+        events: events
     });
 });
 

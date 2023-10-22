@@ -2,10 +2,10 @@
 window.addEventListener("load", () => {
     const elements = document.querySelectorAll(".progress.registered-breakdown");
     for (const element of elements) {
-        const registered = JSON.parse(element.dataset.registerd);
+        const registered = JSON.parse(element.dataset.registered);
         const breakdown = {}
         for (const email of registered) {
-            const domain = email.split("@");
+            const domain = email.split("@")[1];
             if (breakdown.hasOwnProperty(domain)) breakdown[domain] = breakdown[domain] + 1;
             else breakdown[domain] = 1;
         }
