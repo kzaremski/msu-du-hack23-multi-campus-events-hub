@@ -7,7 +7,7 @@ For the purposes of the MSU-DU Hack 23 Hackathon, an inventory of tools, technol
 * Annabella Brotherston
 * Ama Ebong
 * Joel Henry
-* Richard Vavo
+* Richard Vo
 * Konstantin Zaremski
 
 ## Languages
