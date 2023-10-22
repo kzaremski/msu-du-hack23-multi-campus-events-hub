@@ -136,6 +136,14 @@ app.get("/recent", async (req, res) => {
         events: await engine.getMostRecent(20),
     });
 });
+app.get("/search", async (req, res) => {
+    const phrase = req.query.query;
+    res.render("search.html", {
+        username: req.session.username,
+        events: await engine.getSearched(phrase),
+        search: phrase
+    });
+});
 
 // Attributions page
 app.get("/attributions", (req, res) => {

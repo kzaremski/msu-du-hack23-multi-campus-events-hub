@@ -65,7 +65,27 @@ async function getSoonestUpcoming(count) {
 }
 
 async function getSearched(phrase) {
-    return [];
+    // Build aggregation pipeline
+    let aggregationPipeline = [
+        { $match: { start: { $gte: new Date() } } }, // Must not be a past event
+        { $sort: { start: 1 } }
+    ];
+    // get all events
+    const events = await Event.aggregate(aggregationPipeline);
+
+    let results = [];
+    phraseStrings = phrase.split(" ");
+    const regex = new RegExp(phrase, "i");
+
+    for (const event of events) {
+        if (
+            regex.test(event.title) ||
+            regex.test(event.description) ||
+            regex.test(event.institution)
+        ) results.push(event);
+    }
+
+    return results;
 }
 
 module.exports = {
