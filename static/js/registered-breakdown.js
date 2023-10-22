@@ -14,7 +14,7 @@ window.addEventListener("load", () => {
         const variants = ["bg-primary", "bg-success", "bg-warning", "bg-info", "bg-danger"];
         for (const [domain, count] of Object.entries(breakdown)) {
             if (i === 5) i = 0;
-            element.innerHTML += `<div class="progress-bar ${variants[i]}" role="progressbar" style="width: ${(count / registered.length) * 100}%;"></div>`
+            element.innerHTML += `<div class="progress-bar ${variants[i]}" role="progressbar" style="width: ${(count / registered.length) * 100}%;">${domain}</div>`
             i++;
         }
     }
