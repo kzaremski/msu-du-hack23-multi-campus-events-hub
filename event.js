@@ -78,4 +78,47 @@ router.get("/:eventUUID/register", async(req, res) => {
     });
 });
 
+router.get("/:eventUUID/unregister", async(req, res) => {
+    if (!req.session.username) return res.redirect("/profile/signin");
+
+    try {
+        // Get the event
+        const event = await Event.findOne({ uuid: req.params.eventUUID });
+        if (!event) throw "Event does not exist: " + req.params.eventUUID;
+
+        let registered = event.registered.slice()
+        if (registered.indexOf(req.session.username) < 0) return res.redirect("/event/" + event.uuid);
+        registered.splice(registered.indexOf(req.session.username), 1);
+        
+        // Add the user to the registration
+        await Event.findOneAndUpdate(
+            { uuid: event.uuid },
+            { registered: registered }
+        );
+
+        // Add the event to the users list
+        const user = await User.findOne({ email: req.session.username });
+        let userRegistered = user.registeredEvents.slice();
+        if (userRegistered.indexOf(event.uuid) < 0) return res.redirect("/event/" + event.uuid);
+        userRegistered.splice(userRegistered.indexOf(event.uuid), 1);
+        
+        await User.findOneAndUpdate(
+            { email: req.session.username },
+            { registeredEvents: userRegistered }
+        );
+
+        // If exists
+        return res.render("event.html", {
+            username: req.session.username,
+            user: await User.findOne({ email: req.session.username }),
+            event: event
+        });
+    } catch (err) {
+        console.log(err);
+    }
+    return res.render("404.html", {
+        username: req.session.username,
+    });
+});
+
 module.exports = router;
