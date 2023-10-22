@@ -14,6 +14,7 @@ async function getMostRecent(count) {
     let aggregationPipeline = [
         { $sort: { created: -1 } }
     ]
+    // If limiting
     if (count && count > 0) aggregationPipeline.push({ $limit: count });
 
     const results = await Event.aggregate(aggregationPipeline);
@@ -22,11 +23,11 @@ async function getMostRecent(count) {
 }
 
 async function getMostPopular(count) {
-
+    return [];
 }
 
 async function getReccomended(user, count) {
-
+    return [];
 }
 
 async function getSoonestUpcoming(count) {
@@ -34,6 +35,7 @@ async function getSoonestUpcoming(count) {
     let aggregationPipeline = [
         { $sort: { start: -1 } }
     ];
+    // If limiting
     if (count && count > 0) aggregationPipeline.push({ $limit: count });
 
     const results = await Event.aggregate(aggregationPipeline);
@@ -42,7 +44,7 @@ async function getSoonestUpcoming(count) {
 }
 
 async function getSearched(phrase) {
-
+    return [];
 }
 
 module.exports = {

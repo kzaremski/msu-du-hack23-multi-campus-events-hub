@@ -23,6 +23,8 @@ const helmet = require("helmet");
 const compression = require("compression");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+const dateFilter = require("nunjucks-date-filter");
+const cron = require("node-cron");
 const bodyParser = require("body-parser");
 
 // Routers
@@ -32,7 +34,7 @@ const userRouter = require("./user");
 const scraper = require("./scraper");
 
 // Aggregation / Search / Reccomendation Engine
-//const engine 
+const engine = require("./engine");
 
 // Express app object
 const app = express();
@@ -67,6 +69,7 @@ app.use(session({
 }));
 
 // Nunjucks (templating engine)
+app.set("views", path.join(__dirname, "views"));
 const nunjucksOptions = {
     noCache: true,
     watch: true,
@@ -74,8 +77,8 @@ const nunjucksOptions = {
     express: app
 };
 if (app.get("env") === "production") nunjucksOptions.noCache = false;
-nunjucks.configure("views", nunjucksOptions);
-app.set("views", path.join(__dirname, "views"));
+var njenv = nunjucks.configure("views", nunjucksOptions);
+njenv.addFilter("date", dateFilter);
 
 // Middleware for parsing the content of reques bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -96,9 +99,13 @@ app.use("/static", express.static("static"));
 //app.use("/api", require(path.join(__dirname, "/api/api.js")));
 
 // Index
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     res.render("index.html", {
-        username: req.session.username
+        username: req.session.username,
+        reccomended: await engine.getReccomended(3),
+        recent: await engine.getMostRecent(3),
+        popular: await engine.getMostPopular(3),
+        upcoming: await engine.getSoonestUpcoming(3),
     });
 })
 
@@ -119,6 +126,11 @@ app.use(function (req, res, next) {
     });
 });
 
+// Schedule scraping @ 2:00AM & 4:00PM
+cron.schedule('0 2,14 * * *', () => {
+    scraper.scrapeAllAndUpdate();
+});
+
 // Initialization
 (async function init() {
     // Notify startup
@@ -132,9 +144,6 @@ app.use(function (req, res, next) {
         console.error(`There was an issue connecting to the MongoDB database \n-->${err}`);
         return;
     }
-
-    // Run the scraper
-    scraper.scrapeAllAndUpdate();
 
     // Express app listening on the development or production port
     const port = process.env.PORT || 3000;
