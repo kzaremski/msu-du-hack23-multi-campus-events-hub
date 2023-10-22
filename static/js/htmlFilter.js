@@ -2,10 +2,10 @@ function htmlFilter(myString) {
 
 
 
-	let descrFiltered = myString.replace("&nbsf", "");
-	descrFiltered = descrFiltered.replace("&NBSF", "");
-	descrFiltered = descrFiltered.replace("&AMP", "");
-	descrFiltered = descrFiltered.replace("&amp", "");
+	let descrFiltered = myString.replaceAll("&nbsf", "");
+	descrFiltered = descrFiltered.replaceAll("&NBSF", "");
+	descrFiltered = descrFiltered.replaceAll("&AMP", "");
+	descrFiltered = descrFiltered.replaceAll("&amp", "");
 
 	let array = descrFiltered.split("<");
 	descrFiltered = [];
