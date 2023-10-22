@@ -1,0 +1,15 @@
+[Unit]
+Description=uConnect Service
+After=network.target
+
+[Service]
+WorkingDirectory=/home/node/msu-du-hack23-multi-campus-events-hub/
+Environment=PORT=3000
+Environment=NODE_ENV=production
+Type=simple
+User=node
+ExecStart=/usr/bin/node /home/node/msu-du-hack23-multi-campus-events-hub/main.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
