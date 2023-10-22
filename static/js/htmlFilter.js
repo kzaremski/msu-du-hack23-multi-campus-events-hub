@@ -12,10 +12,10 @@ function htmlFilter(myString) {
 
 	//For loop stores concatenates the filtered strings into descrFiltered
 	for (let i = 0; i < array.length; i++) {
-	  if (i !== 0) {
+	//  if (i !== 0) {
 	  	tempArray = array[i].split(">");
 	  	array[i] = tempArray[1]
-	  }
+	  //}
 	  descrFiltered += array[i];
 	}
 	return descrFiltered;
