@@ -2,33 +2,39 @@
 {% block body %}
 <div class="container py-4" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
     <div class="col-md-4">
-        <form method="post" action="/profile/signin">
+        <form method="post" action="/profile/create" id="form" class="needs-validation">
             <h1 class="h3 mb-3 fw-normal">Create an account</h1>
             <p>Already have an account? <a href="/profile/signin">Sign in.</a></p>
     
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder="name@example.edu">
+                <input type="email" class="form-control" id="email" placeholder="name@example.edu" name="email">
                 <label for="email">Institutional Email address</label>
+                <div class="invalid-feedback">Please input a valid email from your college or university ending in .edu</div>
             </div>
     
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
                 <label for="password">Password</label>
+                <div class="invalid-feedback">Please input a password 15 characters or longer</div>
             </div>
 
             <div class="form-floating">
-                <input type="password" class="form-control" id="repeatpassword" placeholder="Password">
-                <label for="repeatpassword">Repeat Password</label>
+                <input type="password" class="form-control" id="passwordrepeat" placeholder="Password" name="passwordrepeat">
+                <label for="passwordrepeat">Repeat Password</label>
             </div>
     
             <div class="form-check text-start my-3">
-                <input class="form-check-input" type="checkbox" value="agreeterms" id="termscheckbox">
+                <input class="form-check-input" type="checkbox" id="termscheckbox" name="termscheckbox">
                 <label class="form-check-label" for="termscheckbox">
                     I agree to uConnect terms of service.
                 </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
             </div>
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <button class="btn btn-primary w-100 py-2" type="submit" id="submit">Create account</button>
         </form>
     </div>
 </div>
+<script src="/static/js/signup.js"></script>
 {% endblock %}

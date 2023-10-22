@@ -1,4 +1,94 @@
 {% extends "page.html" %}
 {% block body %}
+{% import "macros/event-list-group-items.html" as eventItem %}
+<div class="jumbotron-fluid py-4 mb-4" id="jumbotron">
+    <div class="container">
+        <h1 class="display-4">Welcome to uConnect</h1>
+        <p class="lead"><i>Explore events on your campus and beyond!</i></p>
+    </div>
+</div>
+<div class="container" id="content">
+    <div class="row">
+        <div class="col-md-8 mb-3">
+            <h3><a href="/foryou" class="text-dark">For you</a></h3>
+            <div class="list-group">
+                {% if foryouEvents|length %}
 
+                {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    There are no events to display in this category
+                </li>
+                {% endif %}
+                {% if username %}
+                <a href="/foryou" class="list-group-item list-group-item-action"><i>View more events for you</i> <i class="fa-solid fa-chevron-right"></i></a>
+                {% else %}
+                <a href="/profile/signin" class="list-group-item list-group-item-action active"><i>Sign in to get personalized events</i> <i class="fa-solid fa-chevron-right"></i></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h3><a href="/upcoming" class="text-dark">Upcoming</a></h3>
+            <div class="list-group">
+                {% if foryouEvents|length %}
+
+                {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    There are no events to display in this category
+                </li>
+                {% endif %}
+                <a href="/upcoming" class="list-group-item list-group-item-action"><i>View more upcoming events</i> <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <h3><a href="/recent" class="text-dark">Recently posted</a></h3>
+            <div class="list-group">
+                {% if foryouEvents|length %}
+
+                {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    There are no events to display in this category
+                </li>
+                {% endif %}
+                <a href="/recent" class="list-group-item list-group-item-action"><i>View more recent events</i> <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        </div>
+        <div class="col-md-8 mb-3">
+            <h3><a href="/popular" class="text-dark">Popular</a></h3>
+            <div class="list-group">
+                {% if foryouEvents|length %}
+
+                {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    There are no events to display in this category
+                </li>
+                {% endif %}
+                <a href="/popular" class="list-group-item list-group-item-action"><i>View more popular events</i> <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        background-size: cover;
+        background-image: url("/static/img/parker-gibbons-unsplash.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    main {
+        background-color: rgba(255, 255, 255, 0.582);
+    }
+
+    #jumbotron {
+        background-color: rgba(255, 255, 255, 0.521);
+    }
+
+    h3 a {
+        text-decoration: none;
+    }
+
+    h3 a:hover {
+        text-decoration: underline;
+    }
+</style>
 {% endblock %}

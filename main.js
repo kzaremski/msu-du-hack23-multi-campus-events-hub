@@ -23,6 +23,7 @@ const helmet = require("helmet");
 const compression = require("compression");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+const bodyParser = require("body-parser");
 
 // Routers
 const userRouter = require("./user");
@@ -35,24 +36,21 @@ require("dotenv").config({ path: path.join(__dirname, "config.env") });
 
 // Express middleware
 app.use(express.json({ limit: "2mb" }));                    // JSON body parser
-app.use(compression());                                   // gzip compression
-/*if (app.get("env") === "production") {                    // helmet security middleware if in production
-  //app.use(helmet.contentSecurityPolicy());
-  app.use(helmet.crossOriginEmbedderPolicy());
-  app.use(helmet.crossOriginOpenerPolicy());
-  app.use(helmet.crossOriginResourcePolicy());
-  app.use(helmet.dnsPrefetchControl());
-  app.use(helmet.expectCt());
-  app.use(helmet.frameguard());
-  app.use(helmet.hidePoweredBy({ setTo: "God" }));
-  app.use(helmet.hsts());
-  app.use(helmet.ieNoOpen());
-  app.use(helmet.noSniff());
-  app.use(helmet.originAgentCluster());
-  app.use(helmet.permittedCrossDomainPolicies());
-  app.use(helmet.referrerPolicy());
-  app.use(helmet.xssFilter());
-}*/
+app.use(compression());                                     // gzip compression
+app.use(helmet.contentSecurityPolicy());
+app.use(helmet.crossOriginEmbedderPolicy());
+app.use(helmet.crossOriginOpenerPolicy());
+app.use(helmet.crossOriginResourcePolicy());
+app.use(helmet.dnsPrefetchControl());
+app.use(helmet.frameguard());
+app.use(helmet.hidePoweredBy({ setTo: "God" }));
+app.use(helmet.hsts());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+app.use(helmet.originAgentCluster());
+app.use(helmet.permittedCrossDomainPolicies());
+app.use(helmet.referrerPolicy());
+app.use(helmet.xssFilter());
 app.set("trust proxy", 1);                                // Allow one layer of proxies (nginx reverse proxy)
 
 // Configure server side sessions
@@ -73,6 +71,11 @@ if (app.get("env") === "production") nunjucksOptions.noCache = false;
 nunjucks.configure("views", nunjucksOptions);
 app.set("views", path.join(__dirname, "views"));
 
+// Middleware for parsing the content of reques bodies
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser());
+
 // Static files
 app.use("/static", express.static("static"));
 
@@ -88,6 +91,17 @@ app.get("/", (req, res) => {
 
 // Routers
 app.use("/profile", userRouter);
+
+// Handle 404
+app.use(function (req, res, next) {
+    res.status(404);
+    if (req.accepts("html")) {
+        res.render("404.html");
+        return;
+    } else {
+        res.send("404 not found")
+    }
+});
 
 // Initialization
 (async function init() {

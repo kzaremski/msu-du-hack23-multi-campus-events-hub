@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-primary fixed-top" data-bs-theme="dark">
-    <div class="container-fluid">
+    <div class="container">
         <a class="navbar-brand" href="/">uConnect</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -8,16 +8,16 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#tab1">For You</a>
+                    <a class="nav-link" href="/foryou">For You</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tab2">Popular</a>
+                    <a class="nav-link" href="/popular">Popular</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tab2">Upcoming</a>
+                    <a class="nav-link" href="/upcoming">Upcoming</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tab2">Recent</a>
+                    <a class="nav-link" href="/recent">Recent</a>
                 </li>
             </ul>
             <form class="d-flex" data-bs-theme="light">
@@ -36,7 +36,7 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile/signin"><i class="fa-solid fa-user"></i> Sign In</a>
+                    <a class="nav-link" href="/profile/signin"><i class="fa-solid fa-user"></i> Sign in</a>
                 </li>
                 {% endif %}
             </ul>
