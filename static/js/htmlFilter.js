@@ -19,3 +19,9 @@ function htmlFilter(myString) {
 	}
 	return descrFiltered;
 }
+
+let toFilter = document.querySelectorAll(".list-group-item h5,p");
+
+for(let p = 0; p < toFilter.length; p++) {
+	toFilter[p].innerHTML = htmlFilter(toFilter[p].innerHTML);
+}
