@@ -1,0 +1,54 @@
+{% extends "page.html" %}
+{% block body %}
+<div class="container py-4">
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <p class="mb-0">This event was automatically imported from {{ event.institution }} via. <a href="{{ event.scrapedFrom }}">{{ event.scrapedFrom }}</a>. <strong>There may be content and or formatting issues.</strong></p>
+    </div>
+    <div class="container bg-dark rounded mb-3" id="jumbotron" style="background-image: url('{% if event.image %}{{event.image}}{% else %}/static/img/parker-gibbons-unsplash.jpg{% endif %}');">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+    <h1>{{ event.title }}</h1>
+    <h4>{{ event.institution }}</h4>
+    <div class="mb-4">
+        <button class="btn mr-4 btn-primary"><i class="fa-regular fa-calendar-check"></i> RSVP</button>
+        <button class="btn mr-4 btn-success"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share Event</button>
+        <button class="btn mr-4 btn-info"><i class="fa-solid fa-plus"></i> Claim Event</button>
+        <button class="btn mr-4 btn-danger"><i class="fa-solid fa-flag"></i> Report Event</button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <p>{{ event.description }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+            <h5>Location</h5>
+            <p>{{ event.location }}</p>
+            <h5>From</h5>
+            <p>{{ event.start | date("dddd, MMMM Do YYYY, h:mm a") }}</p>
+            <h5>To</h5>
+            <p>{{ event.end | date("dddd, MMMM Do YYYY, h:mm a") }}</p>
+            <h5>Organizer</h5>
+            <p>
+                {% if event.owner %}
+                {{ event.owner }}
+                {% else %}
+                External (unclaimed)
+                {% endif %}
+            </p>
+            <h5>Date Created</h5>
+            <p>{{ event.dateCreated | date("dddd, MMMM Do YYYY, h:mm a") }}</p>
+        </div>
+    </div>
+    <style>
+        #jumbotron {
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</div>
+{% endblock %}

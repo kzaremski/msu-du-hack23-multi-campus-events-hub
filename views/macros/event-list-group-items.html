@@ -1,13 +1,15 @@
-{% macro large(name, start, description, href, img, interest) %}
-<a href="{{href}}" class="list-group-item list-group-item-action py-3">
+{% macro large(name, description, start, end, href, img, interest) %}
+<a href="/event/{{href|urlencode}}" class="list-group-item list-group-item-action py-3">
     <div class="d-flex gap-3 mb-2">
-        <div class="rounded flex-shrink-0 list-group-item-image" style="background-image: url('{{img}}');"></div>
+        <div class="rounded flex-shrink-0 list-group-item-image" style="background-image: url('{% if img %}{{img}}{% else %}/static/img/none.png{% endif %}');"></div>
         <div class="d-flex gap-2 w-100 justify-content-between">
             <div>
-                <h5 class="mb-0">{{ name|safe }}</h5>
-                <p class="mb-0 opacity-75">{{ description|safe }}</p>
+                <h5 class="mb-0">{{ name }}</h5>
+                <p class="mb-0 opacity-75 truncate">{{ description }}</p>
+                <small class="text-nowrap">
+                    From {{ start | date("dddd, MMMM Do YYYY, h:mm a") }} to {{ end | date("dddd, MMMM Do YYYY, h:mm a") }}
+                </small>
             </div>
-            <small class="text-nowrap">{{ start }}<br>{{ start }}</small>
         </div>
     </div>
     <div class="progress">
@@ -20,8 +22,8 @@
 {% endmacro %}
 
 {% macro small(name, start, href) %}
-<a href="{{ href }}" class="list-group-item list-group-item-action p-3 w-100 justify-content-between">
-    <h5 class="mb-2">{{ name|safe }}</h5>
+<a href="/event/{{href|urlencode}}" class="list-group-item list-group-item-action p-3 w-100 justify-content-between">
+    <h5 class="mb-2">{{ name }}</h5>
     <small class="text-nowrap">{{ start | date("dddd, MMMM Do YYYY, h:mm a") }}</small>
 </a>
 {% endmacro %}

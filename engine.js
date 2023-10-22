@@ -12,6 +12,7 @@ const Event = require("./models/event");
 async function getMostRecent(count) {
     // Build aggregation pipeline
     let aggregationPipeline = [
+        { $match: { start: { $gte: new Date() } } }, // Must not be a past event
         { $sort: { created: -1 } }
     ]
     // If limiting
@@ -23,17 +24,37 @@ async function getMostRecent(count) {
 }
 
 async function getMostPopular(count) {
-    return [];
+    // Build aggregation pipeline
+    let aggregationPipeline = [
+        { $match: { start: { $gte: new Date() } } }, // Must not be a past event
+        { $addFields: { length: { $size: "$registered" } } },
+        { $sort: { length: -1 } }
+    ]
+    // If limiting
+    if (count && count > 0) aggregationPipeline.push({ $limit: count });
+
+    const results = await Event.aggregate(aggregationPipeline);
+
+    return results;
 }
 
-async function getReccomended(user, count) {
-    return [];
+async function getRecommended(user, count) {
+    let aggregationPipeline = [
+        { $match: { start: { $gte: new Date() } } }, // Must not be a past event
+        { $sample: { size: count } },
+        { $sort: { start: 1 } }
+    ];
+
+    const results = await Event.aggregate(aggregationPipeline);
+
+    return results;
 }
 
 async function getSoonestUpcoming(count) {
     // Build aggregation pipeline
     let aggregationPipeline = [
-        { $sort: { start: -1 } }
+        { $match: { start: { $gte: new Date() } } }, // Must not be a past event
+        { $sort: { start: 1 } }
     ];
     // If limiting
     if (count && count > 0) aggregationPipeline.push({ $limit: count });
@@ -50,7 +71,7 @@ async function getSearched(phrase) {
 module.exports = {
     getMostRecent,
     getMostPopular,
-    getReccomended,
+    getRecommended,
     getSoonestUpcoming,
     getSearched,
 }

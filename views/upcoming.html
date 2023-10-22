@@ -1,0 +1,18 @@
+{% extends "page.html" %}
+{% import "macros/event-list-group-items.html" as eventItem %}
+{% block body %}
+<div class="container py-4">
+    <h1>Upcoming Events</h1>
+    <div class="list-group">
+        {% for event in events %}
+        {{ eventItem.large(event.title, event.description, event.start, event.end, event.uuid, event.image, event.registered) }}
+        {% else %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            There are no events to display in this category
+        </li>
+        {% endfor %}
+    </div>
+    <br>
+    <a href="/"><i class="fa-solid fa-chevron-left"></i> Return to the home page</a>
+</div>
+{% endblock %}

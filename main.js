@@ -29,6 +29,7 @@ const bodyParser = require("body-parser");
 
 // Routers
 const userRouter = require("./user");
+const eventRouter = require("./event");
 
 // Scraper
 const scraper = require("./scraper");
@@ -79,6 +80,7 @@ const nunjucksOptions = {
 if (app.get("env") === "production") nunjucksOptions.noCache = false;
 var njenv = nunjucks.configure("views", nunjucksOptions);
 njenv.addFilter("date", dateFilter);
+njenv.addGlobal("toJSON", (s) => { return JSON.stringify(s) });
 
 // Middleware for parsing the content of reques bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -102,12 +104,38 @@ app.use("/static", express.static("static"));
 app.get("/", async (req, res) => {
     res.render("index.html", {
         username: req.session.username,
-        reccomended: await engine.getReccomended(3),
+        recommended: await engine.getRecommended(req.session.user, 3),
         recent: await engine.getMostRecent(3),
         popular: await engine.getMostPopular(3),
         upcoming: await engine.getSoonestUpcoming(3),
     });
 })
+
+// 4 Views
+app.get("/foryou", async (req, res) => {
+    res.render("recommended.html", {
+        username: req.session.username,
+        events: await engine.getRecommended(req.session.user, 20),
+    });
+});
+app.get("/upcoming", async (req, res) => {
+    res.render("upcoming.html", {
+        username: req.session.username,
+        events: await engine.getSoonestUpcoming(20),
+    });
+});
+app.get("/popular", async (req, res) => {
+    res.render("popular.html", {
+        username: req.session.username,
+        events: await engine.getMostPopular(20),
+    });
+});
+app.get("/recent", async (req, res) => {
+    res.render("recent.html", {
+        username: req.session.username,
+        events: await engine.getMostRecent(20),
+    });
+});
 
 // Attributions page
 app.get("/attributions", (req, res) => {
@@ -118,6 +146,7 @@ app.get("/attributions", (req, res) => {
 
 // Routers
 app.use("/profile", userRouter);
+app.use("/event", eventRouter);
 
 // Handle 404
 app.use(function (req, res, next) {
@@ -126,8 +155,8 @@ app.use(function (req, res, next) {
     });
 });
 
-// Schedule scraping @ 2:00AM & 4:00PM
-cron.schedule('0 2,14 * * *', () => {
+// Schedule scraping @ 2:00AM & 6:00PM
+cron.schedule('0 2,18 * * *', () => {
     scraper.scrapeAllAndUpdate();
 });
 

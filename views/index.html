@@ -12,15 +12,15 @@
         <div class="col-md-8 mb-3">
             <h3><a href="/foryou" class="text-dark">For you</a></h3>
             <div class="list-group">
-                {% if reccomended|length %}
-
+                {% for event in recommended %}
+                {{ eventItem.large(event.title, event.description, event.start, event.end, event.uuid, event.image, event.registered) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
                 </li>
-                {% endif %}
+                {% endfor %}
                 {% if username %}
-                <a href="/foryou" class="list-group-item list-group-item-action"><i>View more events for you</i> <i class="fa-solid fa-chevron-right"></i></a>
+                <a href="/foryou" class="list-group-item list-group-item-action"><i>View more recommended events for you</i> <i class="fa-solid fa-chevron-right"></i></a>
                 {% else %}
                 <a href="/profile/signin" class="list-group-item list-group-item-action active"><i>Sign in to get personalized events</i> <i class="fa-solid fa-chevron-right"></i></a>
                 {% endif %}
@@ -30,7 +30,7 @@
             <h3><a href="/upcoming" class="text-dark">Upcoming</a></h3>
             <div class="list-group">
                 {% for event in upcoming %}
-                {{ eventItem.small(event.title, event.start, event.start, "#" ) }}
+                {{ eventItem.small(event.title, event.start, event.uuid) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
@@ -43,7 +43,7 @@
             <h3><a href="/recent" class="text-dark">Recently posted</a></h3>
             <div class="list-group">
                 {% for event in recent %}
-                {{ eventItem.small(event.title, event.start, event.start, "#" ) }}
+                {{ eventItem.small(event.title, event.start, event.uuid) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
@@ -55,13 +55,13 @@
         <div class="col-md-8 mb-3">
             <h3><a href="/popular" class="text-dark">Popular</a></h3>
             <div class="list-group">
-                {% if popular|length %}
-
+                {% for event in popular %}
+                {{ eventItem.large(event.title, event.description, event.start, event.end, event.uuid, event.image, event.registered) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
                 </li>
-                {% endif %}
+                {% endfor %}
                 <a href="/popular" class="list-group-item list-group-item-action"><i>View more popular events</i> <i class="fa-solid fa-chevron-right"></i></a>
             </div>
         </div>
