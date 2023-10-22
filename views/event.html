@@ -39,7 +39,7 @@
             <h5>Categories</h5>
             <div>
                 {% for category in event.categories %}
-                    <span class="badge bg-danger">{{ category }}</span>
+                    <span class="badge bg-danger needs-html-filter">{{ category }}</span>
                 {% else %}
                     N/A
                 {% endfor %}
