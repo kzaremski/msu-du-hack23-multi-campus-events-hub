@@ -10,6 +10,7 @@ function htmlFilter(myString) {
 	descrFiltered = []; //empties descrFiltered so that it can be filled with the filtered str later
 	let tempArray = []; //temp array is used to dissect the html and normal text [0] is html and [1] is the regular text
 
+	//For loop stores concatenates the filtered strings into descrFiltered
 	for (let i = 0; i < array.length; i++) {
 	  if (i !== 0) {
 	  	tempArray = array[i].split(">");
@@ -23,7 +24,7 @@ function htmlFilter(myString) {
 
 //grabs all items that need to be filtered
 let toFilter = document.querySelectorAll(".list-group-item .needs-html-filter");
-
+//changes the html for the text that needs to be filtered
 for(let p = 0; p < toFilter.length; p++) {
 	toFilter[p].innerHTML = htmlFilter(toFilter[p].innerHTML);
 }
