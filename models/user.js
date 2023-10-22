@@ -53,6 +53,11 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    // Registered events list (UUIDs)
+    registeredEvents: {
+        type: Array,
+        default: []
+    }
 });
 
 // Create a mongoose model from that schema

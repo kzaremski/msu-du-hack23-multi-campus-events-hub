@@ -13,7 +13,7 @@
             <h3><a href="/foryou" class="text-dark">For you</a></h3>
             <div class="list-group">
                 {% for event in recommended %}
-                {{ eventItem.large(event.title, event.description, event.start, event.end, event.uuid, event.image, event.registered) }}
+                {{ eventItem.large(event) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
@@ -30,7 +30,7 @@
             <h3><a href="/upcoming" class="text-dark">Upcoming</a></h3>
             <div class="list-group">
                 {% for event in upcoming %}
-                {{ eventItem.small(event.title, event.start, event.uuid) }}
+                {{ eventItem.small(event) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
@@ -43,7 +43,7 @@
             <h3><a href="/recent" class="text-dark">Recently posted</a></h3>
             <div class="list-group">
                 {% for event in recent %}
-                {{ eventItem.small(event.title, event.start, event.uuid) }}
+                {{ eventItem.small(event) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
@@ -56,7 +56,7 @@
             <h3><a href="/popular" class="text-dark">Popular</a></h3>
             <div class="list-group">
                 {% for event in popular %}
-                {{ eventItem.large(event.title, event.description, event.start, event.end, event.uuid, event.image, event.registered) }}
+                {{ eventItem.large(event) }}
                 {% else %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     There are no events to display in this category
