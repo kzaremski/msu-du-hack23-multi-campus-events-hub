@@ -64,6 +64,7 @@ async function scrape() {
                     categories: event.categories,
                     location: event.location,
                     scraped: true,
+                    scrapedFrom: "https://msudenver.trumba.com/",
                     original: "",
                     image: image,
                     institution: "Metropolitan State University of Denver"

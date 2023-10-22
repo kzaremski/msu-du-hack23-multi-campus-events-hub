@@ -35,6 +35,7 @@ async function scrape() {
                     categories: event.categories,
                     location: event.location,
                     scraped: true,
+                    scrapedFrom: "https://crimsonconnect.du.edu/events",
                     original: "",
                     image: "",
                     institution: "University of Denver"
@@ -47,8 +48,6 @@ async function scrape() {
         // Notify
         console.log(`${parsed.length} event(s) loaded from du.edu`);
         
-        console.log(events);
-
         // Return the parsed events
         return parsed;
     } catch (err) {

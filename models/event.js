@@ -50,6 +50,11 @@ const eventSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    scraped: Boolean,
+    scrapedFrom: {
+        type: String,
+        trim: true
+    },
     owner: {
         type: String,
         default: ""
