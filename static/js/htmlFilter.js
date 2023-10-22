@@ -1,13 +1,15 @@
 function htmlFilter(myString) {
 
 	//removes &nbsf and &amp from the string
-	let descrFiltered = myString.replaceAll("&nbsf", "");
-	descrFiltered = descrFiltered.replaceAll("&NBSF", "");
-	descrFiltered = descrFiltered.replaceAll("&AMP", "");
-	descrFiltered = descrFiltered.replaceAll("&AMP;", "");
-	descrFiltered = descrFiltered.replaceAll("&amp", "");
-	descrFiltered = descrFiltered.replaceAll("&amp;", "");
-	descrFiltered = descrFiltered.replaceAll(";amp;", "");
+	let descrFiltered = myString.replaceAll("&nbsf;", '');
+	descrFiltered = descrFiltered.replaceAll("&NBSF;", '');
+  descrFiltered = descrFiltered.replaceAll("&NBSF", '');
+  descrFiltered = descrFiltered.replaceAll("&nbsf", '');
+	descrFiltered = descrFiltered.replaceAll("&AMP;", '');
+	descrFiltered = descrFiltered.replaceAll("&AMP", '');
+	descrFiltered = descrFiltered.replaceAll("&amp;", '');
+	descrFiltered = descrFiltered.replaceAll("&amp", '');
+	descrFiltered = descrFiltered.replaceAll(";amp;", '');
 
 	let array = descrFiltered.split("<");
 	descrFiltered = []; //empties descrFiltered so that it can be filled with the filtered str later
@@ -18,7 +20,10 @@ function htmlFilter(myString) {
 	  if (i !== 0) {
 	  	tempArray = array[i].split(">");
 	  	array[i] = tempArray[1]
-	  }
+	  } else if(array[i].indexOf("<")==0) {
+    	tempArray = array[i].split(">");
+	  	array[i] = tempArray[1]
+    }
 	  descrFiltered += array[i];
 	}
 	return descrFiltered;
