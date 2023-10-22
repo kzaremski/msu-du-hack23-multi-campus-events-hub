@@ -74,7 +74,14 @@ app.set("views", path.join(__dirname, "views"));
 // Middleware for parsing the content of reques bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser());
+
+// Error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render("500.html", {
+        username: req.session.username
+    });
+});
 
 // Static files
 app.use("/static", express.static("static"));
@@ -94,13 +101,9 @@ app.use("/profile", userRouter);
 
 // Handle 404
 app.use(function (req, res, next) {
-    res.status(404);
-    if (req.accepts("html")) {
-        res.render("404.html");
-        return;
-    } else {
-        res.send("404 not found")
-    }
+    res.status(404).render("404.html", {
+        username: req.session.username
+    });
 });
 
 // Initialization

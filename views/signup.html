@@ -6,6 +6,13 @@
             <h1 class="h3 mb-3 fw-normal">Create an account</h1>
             <p>Already have an account? <a href="/profile/signin">Sign in.</a></p>
     
+            {% if message %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ message}}
+            </div>
+            {% endif %}
+
             <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="email" placeholder="name@example.edu" name="email">
                 <label for="email">Institutional Email address</label>

@@ -2,23 +2,30 @@
 {% block body %}
 <div class="container py-4" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
     <div class="col-md-4">
-        <form method="post" action="/profile/signin">
+        <form method="post" action="/profile/signin" class="needs-validation">
             <h1 class="h3 mb-3 fw-normal">Sign in</h1>
             <p>Don't have an account? <a href="/profile/create">Create one!</a></p>
+
+            {% if message %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ message}}
+            </div>
+            {% endif %}
     
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.edu">
-                <label for="floatingInput">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.edu" name="email">
+                <label for="email">Email address</label>
             </div>
     
             <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                <label for="password">Password</label>
             </div>
     
             <div class="form-check text-start my-3">
-                <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                <label class="form-check-label" for="remember">
                     Remember me
                 </label>
             </div>
@@ -26,4 +33,5 @@
         </form>
     </div>
 </div>
+<script src="/static/js/signin.js"></script>
 {% endblock %}

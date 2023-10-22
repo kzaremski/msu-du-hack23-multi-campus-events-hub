@@ -9,7 +9,7 @@ const fs = require('fs');
 
 // User account schema
 const userSchema = new mongoose.Schema({
-  // UUID for staff user account
+  // UUID for user account
   id: {
     type: String,
     unique: true,
@@ -30,21 +30,8 @@ const userSchema = new mongoose.Schema({
   dateLastLogin: {
     type: Date,
   },
-  // The user name/handle for the user account
-  username: {
-    type: String,
-    trim: true
-  },
   // The legal name for the person to whom this user account belongs
-  firstName: {
-    type: String,
-    trim: true
-  },
-  middleName: {
-    type: String,
-    trim: true
-  },
-  lastName: {
+  legalName: {
     type: String,
     trim: true
   },
