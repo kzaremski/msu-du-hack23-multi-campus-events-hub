@@ -22,19 +22,20 @@ function extractTLD(email) {
 }
 
 // Login route
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
     if (!req.session.username) return res.redirect("/profile/signin");
     res.render("user_profile.html", {
-        username: req.session.username
+        username: req.session.username,
+        user: await User.findOne({ email: req.session.username }),
     });
 });
 
 // Settings route
-router.get("/settings", (req, res) => {
+router.get("/settings", async (req, res) => {
     if (!req.session.username) return res.redirect("/profile/signin");
     res.render("user_settings.html", {
         username: req.session.username,
-        user: req.session.user
+        user: await User.findOne({ email: req.session.username }),
     });
 });
 
