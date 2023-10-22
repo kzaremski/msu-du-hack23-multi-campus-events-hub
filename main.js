@@ -151,6 +151,18 @@ app.get("/attributions", (req, res) => {
     });
 })
 
+// Manual scrape trigger by API key
+const apiKey = `${Math.random()}${Math.random()}${Math.random()}`.replaceAll(".","");
+console.log(`API KEY: ${apiKey}`);
+app.get("/scrape", (req, res) => {
+    if (apiKey === req.query.key) {
+        res.send("Manually triggered scraping.");
+        console.log("Manually triggered scraping.");
+        scraper.scrapeAllAndUpdate();
+    }
+    else return res.send("Invalid API key.");
+});
+
 // Routers
 app.use("/profile", userRouter);
 app.use("/event", eventRouter);
