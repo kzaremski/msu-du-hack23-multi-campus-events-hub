@@ -2,6 +2,16 @@
 ###### msudu-hack23-multi-campus-events-hub
 Multi-campus events interface
 
+# Installation & Dependencies
+To run in production, you must have the following installed:
+
+* `mongodb`
+* `nginx`
+* `nodejs`
+* `npm`
+
+Start the MongoDB service and run the servier with `node main.js`
+
 # Information & Attributions
 For the purposes of the MSU-DU Hack 23 Hackathon, an inventory of tools, technologies, and third-party-produced resources are provided below.
 # Pitch Deck
