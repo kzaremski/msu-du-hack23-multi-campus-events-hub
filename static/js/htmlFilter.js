@@ -4,6 +4,8 @@ function htmlFilter(myString) {
 
 	let descrFiltered = myString.replace("&nbsf", "");
 	descrFiltered = descrFiltered.replace("&NBSF", "");
+	descrFiltered = descrFiltered.replace("&AMP", "");
+	descrFiltered = descrFiltered.replace("&amp", "");
 
 	let array = descrFiltered.split("<");
 	descrFiltered = [];
