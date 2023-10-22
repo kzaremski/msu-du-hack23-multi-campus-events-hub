@@ -44,7 +44,7 @@ router.get("/:eventUUID/register", async(req, res) => {
         if (!event) throw "Event does not exist: " + req.params.eventUUID;
 
         let registered = event.registered.slice()
-        if (registered.indexOf(req.session.username) >= 0) return res.redirect("/event/" + event.uuid);
+        if (registered.indexOf(req.session.username) >= 0) return res.redirect("/event/" + encodeURIComponent(event.uuid));
         registered.push(req.session.username)
         
         // Add the user to the registration
@@ -56,7 +56,7 @@ router.get("/:eventUUID/register", async(req, res) => {
         // Add the event to the users list
         const user = await User.findOne({ email: req.session.username });
         let userRegistered = user.registeredEvents.slice();
-        if (userRegistered.indexOf(event.uuid) >= 0) return res.redirect("/event/" + event.uuid);
+        if (userRegistered.indexOf(event.uuid) >= 0) return res.redirect("/event/" + encodeURIComponent(event.uuid));
         userRegistered.push(event.uuid)
         
         await User.findOneAndUpdate(
@@ -64,12 +64,7 @@ router.get("/:eventUUID/register", async(req, res) => {
             { registeredEvents: userRegistered }
         );
 
-        // If exists
-        return res.render("event.html", {
-            username: req.session.username,
-            user: await User.findOne({ email: req.session.username }),
-            event: event
-        });
+        return res.redirect("/event/" + encodeURIComponent(event.uuid));
     } catch (err) {
         console.log(err);
     }
@@ -87,7 +82,7 @@ router.get("/:eventUUID/unregister", async(req, res) => {
         if (!event) throw "Event does not exist: " + req.params.eventUUID;
 
         let registered = event.registered.slice()
-        if (registered.indexOf(req.session.username) < 0) return res.redirect("/event/" + event.uuid);
+        if (registered.indexOf(req.session.username) < 0) return res.redirect("/event/" + encodeURIComponent(event.uuid));
         registered.splice(registered.indexOf(req.session.username), 1);
         
         // Add the user to the registration
@@ -99,7 +94,7 @@ router.get("/:eventUUID/unregister", async(req, res) => {
         // Add the event to the users list
         const user = await User.findOne({ email: req.session.username });
         let userRegistered = user.registeredEvents.slice();
-        if (userRegistered.indexOf(event.uuid) < 0) return res.redirect("/event/" + event.uuid);
+        if (userRegistered.indexOf(event.uuid) < 0) return res.redirect("/event/" + encodeURIComponent(event.uuid));
         userRegistered.splice(userRegistered.indexOf(event.uuid), 1);
         
         await User.findOneAndUpdate(
@@ -107,12 +102,7 @@ router.get("/:eventUUID/unregister", async(req, res) => {
             { registeredEvents: userRegistered }
         );
 
-        // If exists
-        return res.render("event.html", {
-            username: req.session.username,
-            user: await User.findOne({ email: req.session.username }),
-            event: event
-        });
+        return res.redirect("/event/" + encodeURIComponent(event.uuid));
     } catch (err) {
         console.log(err);
     }
