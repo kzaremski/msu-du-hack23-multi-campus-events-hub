@@ -1,7 +1,11 @@
-# msudu-hack23-multi-campus-events-hub
+# uConnect | DU/MSU Hackathon
+###### msudu-hack23-multi-campus-events-hub
 Multi-campus events interface
+
 # Information & Attributions
 For the purposes of the MSU-DU Hack 23 Hackathon, an inventory of tools, technologies, and third-party-produced resources are provided below.
+# Pitch Deck
+https://app.pitch.com/app/presentation/44a4e541-8207-430f-9f4f-1c8c3834a999/a4259183-3ea9-44f8-97f7-e542c087641b
 
 ## Team
 * Annabella Brotherston
@@ -41,3 +45,8 @@ Thanks to Parker Gibbons via. Unsplash; license permits commercial usage without
 * nunjucks - HTML file templating engine
 * nunjucks-date-filter - Date formatting addon for nunjucks
 * uuid - UUID generator
+## References
+* https://www.insidehighered.com/news/student-success/college-experience/2023/09/22/survey-barriers-college-students-campus
+* https://www.apa.org/monitor/2022/10/mental-health-campus-care
+* https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7579088/
+* https://www.collegedata.com/resources/campus-life/being-involved-in-college-how-can-it-benefit-me
