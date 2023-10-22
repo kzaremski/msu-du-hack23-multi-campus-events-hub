@@ -46,7 +46,7 @@ require("dotenv").config({ path: path.join(__dirname, "config.env") });
 // Express middleware
 app.use(express.json({ limit: "2mb" }));                    // JSON body parser
 app.use(compression());                                     // gzip compression
-app.use(helmet.contentSecurityPolicy());
+/*app.use(helmet.contentSecurityPolicy());
 app.use(helmet.crossOriginEmbedderPolicy());
 app.use(helmet.crossOriginOpenerPolicy());
 app.use(helmet.crossOriginResourcePolicy());
@@ -59,7 +59,7 @@ app.use(helmet.noSniff());
 app.use(helmet.originAgentCluster());
 app.use(helmet.permittedCrossDomainPolicies());
 app.use(helmet.referrerPolicy());
-app.use(helmet.xssFilter());
+app.use(helmet.xssFilter());*/
 app.set("trust proxy", 1);                                // Allow one layer of proxies (nginx reverse proxy)
 
 // Configure server side sessions
