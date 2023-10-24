@@ -10,7 +10,7 @@ To run in production, you must have the following installed:
 * `nodejs`
 * `npm`
 
-Start the MongoDB service and run the servier with `node main.js`
+Start the MongoDB service and run the server with `node main.js`
 
 # Information & Attributions
 For the purposes of the MSU-DU Hack 23 Hackathon, an inventory of tools, technologies, and third-party-produced resources are provided below.
